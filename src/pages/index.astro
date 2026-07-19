@@ -2,8 +2,10 @@
 import BaseLayout from "../layouts/Base.astro";
 import Intro from "../components/blocks/Intro.mdx";
 import QuickLinks from "../components/blocks/QuickLinks.mdx";
+import Greeting from "../components/Greeting.svelte";
 
 const pageTitle = "Home";
+const messages = ["Hello", "Hej", "Hallo", "Hola", "Habari", "Salut"];
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -14,6 +16,7 @@ const pageTitle = "Home";
         </p>
     </section>
     <section id="intro">
+        <Greeting messages={messages} client:load />
         <Intro />
     </section>
     <section id="quick-links">
