@@ -541,7 +541,7 @@ main#site-main {
 }
 
 .home #hero {
-    aspect-ratio: 1.6 auto;
+    aspect-ratio: 1.5 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;

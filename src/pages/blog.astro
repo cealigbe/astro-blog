@@ -1,10 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import PostItem from "../components/PostItem.astro";
 
-const allPosts = Object.values(
-    import.meta.glob("./posts/*.{md,mdx}", { eager: true }),
-).sort((a: any, b: any) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+let allPosts = await getCollection("blog");
+allPosts.sort((a: any, b: any) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
 
 const pageTitle = "Blog";
 ---

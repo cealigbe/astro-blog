@@ -3,6 +3,13 @@ import Base from "./Base.astro";
 import PostTag from "../components/PostTag.astro";
 
 const { frontmatter } = Astro.props;
+
+const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+};
 ---
 
 <Base pageTitle={frontmatter.title} metadata={frontmatter}>
@@ -10,7 +17,7 @@ const { frontmatter } = Astro.props;
         <p class="desc">{frontmatter.description}</p>
         <p class="authorship">
             Written by {frontmatter.author}, on {
-                frontmatter.pubDate.toString().slice(0, 10)
+                frontmatter.pubDate.toLocaleDateString("en-US", options)
             }
         </p>
     </div>
@@ -29,3 +36,11 @@ const { frontmatter } = Astro.props;
         </footer>
     </article>
 </Base>
+
+<style>
+    .featured-image {
+        max-width: 100%;
+        aspect-ratio: 2.5;
+        object-fit: cover;
+    }
+</style>

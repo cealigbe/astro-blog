@@ -1,10 +1,18 @@
 ---
 const { post } = Astro.props;
+
+const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+};
+
 ---
 
 <li>
-    <a href={post.url}>{post.frontmatter.title}</a>
+    <a href={`/posts/${post.id}`}>{post.data.title}</a>
     <span>
-        {post.frontmatter.pubDate.toString().slice(0, 10)}
+        {post.data.pubDate.toLocaleDateString("en-US", options)}
     </span>
 </li>

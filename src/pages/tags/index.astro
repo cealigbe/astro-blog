@@ -1,9 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 
-const allPosts = Object.values(await import.meta.glob("../posts/*.{md,mdx}", { eager: true }));
+const allPosts = await getCollection("blog");
 
-const tags = allPosts.flatMap(post => post.frontmatter.tags);
+const tags = allPosts.flatMap(post => post.data.tags);
 const uniqueTags = [...new Set(tags)];
 const tagCounts = uniqueTags.map(tag => ({
     tag,
