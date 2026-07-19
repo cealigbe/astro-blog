@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import PostItem from "../components/PostItem.astro";
 
 const allPosts = Object.values(
-    import.meta.glob("./posts/*.md", { eager: true }),
+    import.meta.glob("./posts/*.{md,mdx}", { eager: true }),
 ).sort((a: any, b: any) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
 
 const pageTitle = "Blog";

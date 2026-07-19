@@ -23,13 +23,13 @@
         width: 100%;
         margin-bottom: 2rem;
         padding: 2rem;
-        border: 2px solid var(--clr-primary-light);
+        border: 2px solid var(--clr-primary);
         border-radius: 1rem;
         border-bottom-right-radius: 0;
     }
 
     .notice {
         text-decoration: underline;
-        color: var(--clr-primary-dark);
+        color: #f90;
     }
 </style>

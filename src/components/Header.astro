@@ -1,8 +1,17 @@
 ---
 import Navigation from "./Navigation.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header id="site-header">
-    <h1 class="wordmark">My Astro Blog</h1>
-    <Navigation />
+    <h1 class="wordmark">My Blog</h1>
+    <div class="action-area"><Navigation /><ThemeToggle /></div>
 </header>
+
+<style>
+    .action-area {
+        display: flex;
+        gap: 1.25rem;
+        align-items: center;
+    }
+</style>

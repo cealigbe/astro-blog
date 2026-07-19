@@ -114,7 +114,8 @@ html:has(dialog[open]) {
     --clr-surface: #f6f6f6; /* Background for body and default inputs */
     --clr-surface-alt: #d0d0d6; /* Alternate background color */
     --clr-body-text: #202020; /* Body text color */
-    --clr-primary: #0080ff; /* Buttons, links, primary input states */
+    --clr-body-text-alt: #606060; /* Alternate body text color */
+    --clr-primary: #0099ff; /* Buttons, links, primary input states */
     --clr-primary-dark: hsl(210, 100%, 25%); /* Dark variant of primary color */
     --clr-primary-light: hsl(210, 100%, 80%); /* Light variant of primary color */
     --clr-secondary: #204060; /* Input elements with class "secondary" */
@@ -134,7 +135,7 @@ html:has(dialog[open]) {
     --clr-success: #66cc33; /* Success color for toasts */
     --clr-success-dark: hsl(100, 100%, 25%); /* Dark variant of success color */
     --clr-success-light: hsl(100, 80%, 80%); /* Light variant of success color */
-    --clr-disabled-color: #565656; /* Color for disabled input elements */
+    --clr-disabled: #565656; /* Color for disabled input elements */
 
     --sp-xs: 0.5rem;
     --sp-sm: 0.75rem;
@@ -149,13 +150,25 @@ html:has(dialog[open]) {
     --type-scale-factor: 1.1;
 }
 
+html.dark {
+    --clr-surface: #202020;
+    --clr-surface-alt: #404040;
+    --clr-body-text: #ffffff;
+    --clr-body-text-alt: #bbbbbb;
+    --clr-contrast: #e0e0e0;
+    --clr-contrast-alt: #a0a0a0;
+    --clr-disabled: #909090;
+
+    background-color: var(--clr-surface);
+}
+
 /* -------- GLOBAL STYLES -------- */
 
 body {
     font-family: var(--font-body);
     font-size: calc(var(--type-scale-factor) * 1rem);
     background-color: var(--clr-surface);
-    color: #333;
+    color: var(--clr-body-text);
     width: 100%;
     display: contents;
     margin: 0;
@@ -276,7 +289,8 @@ details[open]::details-content {
 button,
 input[type="submit"],
 input[type="button"],
-input[type="reset"] {
+input[type="reset"],
+.btn {
     appearance: none;
     min-height: 3rem;
     margin-bottom: 0.5rem;
@@ -284,10 +298,10 @@ input[type="reset"] {
     border: none;
     border-radius: 0.25rem;
     background-color: var(--clr-primary);
-    color: var(--clr-surface);
+    color: white;
     font-weight: bold;
     cursor: pointer;
-    transition: opacity 200ms;
+    transition: opacity 200ms, background-color 200ms;
 }
 
 button:hover,
@@ -297,22 +311,66 @@ input[type="reset"]:hover,
 button:focus,
 input[type="submit"]:focus,
 input[type="button"]:focus,
-input[type="reset"]:focus {
+input[type="reset"]:focus,
+.btn:hover,
+.btn:focus {
     opacity: 0.8;
 }
 
 button:active,
 input[type="submit"]:active,
 input[type="button"]:active,
-input[type="reset"]:active {
+input[type="reset"]:active,
+.btn:active {
     background-color: var(--clr-secondary);
 }
 
-button:has(* + *) {
+:is(button, input[type="submit"], input[type="button"], input[type="reset"], .btn):has(* + *) {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     text-transform: uppercase;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--clr-primary);
+    color: var(--clr-primary);
+}
+
+.btn-ghost {
+    background-color: transparent;
+    border: none;
+    color: var(--clr-primary);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus {
+    background-color: hsl( from var(--clr-secondary) h s l / 0.1 );
+}
+
+.btn-outline:active,
+.btn-ghost:active {
+    background-color: hsl( from var(--clr-secondary) h s l / 0.4 );
+}
+
+.btn-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+
+    span {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
 }
 
 table {
@@ -491,7 +549,7 @@ main#site-main {
         linear-gradient(to bottom, hsl(from var(--clr-secondary-light) h s l / 0.4), hsl(from var(--clr-secondary-dark) h s l / 0.8)),
         url("https://static.photos/textures/1200x630/117");
     background-size: cover;
-    color: var(--clr-surface);
+    color: #eee;
     padding: 1.5rem;
     font-size: calc(var(--type-scale-factor) * 2rem);
 
@@ -546,7 +604,7 @@ footer#site-footer {
 
     .authorship {
         font-style: italic;
-        color: #808080;
+        color: var(--clr-body-text-alt);
     }
 }
 
@@ -560,12 +618,40 @@ footer#site-footer {
 .post__article--footer {
     margin-top: var(--sp-lg);
     padding-top: var(--sp-lg);
-    border-top: 1px solid #eee;
+    border-top: 1px solid #ddd;
 
     .tags {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
         align-items: center;
+    }
+}
+
+
+/* ------ DARK MODE ------ */
+
+.dark {
+    #site-header {
+        h1.wordmark {
+            color: var(--clr-primary-light);
+        }
+    }
+
+    #site-nav menu {
+        background-color: hsl(from var(--clr-surface-alt) h s l / 0.8);
+
+        li a {
+            color: var(--clr-primary-light);
+        }
+
+        @media (min-width: 40rem) {
+            background-color: transparent;
+        }
+    }
+
+    .title-banner {
+        background-color: var(--clr-secondary);
+        color: var(--clr-body-text);
     }
 }
