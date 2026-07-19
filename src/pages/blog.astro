@@ -1,0 +1,20 @@
+---
+import Base from "../layouts/Base.astro";
+import PostItem from "../components/PostItem.astro";
+
+const allPosts = Object.values(
+    import.meta.glob("./posts/*.md", { eager: true }),
+).sort((a: any, b: any) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+
+const pageTitle = "Blog";
+---
+
+<Base pageTitle={pageTitle}>
+    <h2>My Astro Learning Journey</h2>
+    <p>This is where I will post about my journey learning Astro.</p>
+    <ul class="post-listing">
+        {
+            allPosts.map((post: any) => <PostItem post={post} />)
+        }
+    </ul>
+</Base>

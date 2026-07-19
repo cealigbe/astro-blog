@@ -1,0 +1,26 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const allPosts = Object.values(await import.meta.glob("../posts/*.md", { eager: true }));
+
+const tags = allPosts.flatMap(post => post.frontmatter.tags);
+const uniqueTags = [...new Set(tags)];
+const tagCounts = uniqueTags.map(tag => ({
+    tag,
+    count: tags.filter(t => t === tag).length,
+}));
+
+const pageTitle = "Tag Index";
+
+---
+
+<Base pageTitle={pageTitle}>
+    <div class="metadata" slot="metadata">
+        <p class="desc">A list of all tags in the blog.</p>
+    </div>
+    <ul class="tag-listing">
+        {tagCounts.map(tagCount => (
+            <li><a href={`/tags/${tagCount.tag}`}>{tagCount.tag}</a> &mdash; ({tagCount.count})</li>
+        ))}
+    </ul>
+</Base>

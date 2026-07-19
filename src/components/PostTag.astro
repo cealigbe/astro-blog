@@ -1,0 +1,21 @@
+---
+const { tag } = Astro.props;
+---
+
+
+<a href={`/tags/${tag}`} class="tag--item">
+    <span>{tag}</span>
+</a>
+
+
+<style>
+    a.tag--item {
+        background-color: hsl(from var(--clr-primary-light) h s 90);
+        color: var(--clr-secondary);
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        white-space: nowrap;
+    }
+</style>

@@ -1,0 +1,31 @@
+---
+import Base from "./Base.astro";
+import PostTag from "../components/PostTag.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<Base pageTitle={frontmatter.title} metadata={frontmatter}>
+    <div class="metadata" slot="metadata">
+        <p class="desc">{frontmatter.description}</p>
+        <p class="authorship">
+            Written by {frontmatter.author}, on {
+                frontmatter.pubDate.toString().slice(0, 10)
+            }
+        </p>
+    </div>
+    <article class="post__article">
+        <img
+            class="featured-image"
+            src={frontmatter.image.url}
+            alt={frontmatter.image.alt}
+        />
+        <slot />
+        <footer class="post__article--footer">
+            <p class="tags">
+                <strong>Tags:</strong>
+                {frontmatter.tags.map(tag => <PostTag tag={tag} />)}
+            </p>
+        </footer>
+    </article>
+</Base>

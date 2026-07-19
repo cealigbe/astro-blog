@@ -1,0 +1,45 @@
+---
+import Social from "./Social.astro";
+
+const socials = [
+    { platform: "github", username: "cealigbe", alias: "gh" },
+    { platform: "linkedin", username: "in/cealigbe", alias: "li" },
+    { platform: "instagram", username: "chuckaligbe", alias: "ig" },
+    { platform: "threads", username: "@cealpha", alias: "th" },
+];
+---
+
+<footer id="site-footer">
+    <p>
+        &copy; {new Date().getFullYear()},&nbsp;
+        <a href="http://chuck.aligbe.com">Chuck Aligbe</a>. All rights reserved.
+    </p>
+    <ul class="socials">
+        {
+            socials.map((social) => (
+                <li>
+                    <Social
+                        platform={social.platform}
+                        username={social.username}
+                        alias={social.alias}
+                    />
+                </li>
+            ))
+        }
+    </ul>
+</footer>
+
+<style>
+    #site-footer p {
+        margin-bottom: var(--sp-xl);
+    }
+
+    .socials {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: var(--sp-sm);
+        justify-content: center;
+    }
+</style>
